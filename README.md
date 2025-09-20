@@ -25,3 +25,39 @@ On Linux, you can start the files like this:
 
 ![Screenshot of Memory³ game](screenshot-game-memory3.png)
 
+## Tutorial
+
+Hello world in engine.py:
+
+    from engine import App
+
+    app = App()
+    app.text = "Hello, world!"
+    app.exec()
+
+
+Ping-Pong animation:
+
+    from engine import App, Emoji
+
+    def ping():
+        if ball.x > 600:
+            ball.vx = -5
+            app.frame = pong
+
+    def pong():
+        if ball.x < 10:
+            ball.vx = 5
+            app.frame = ping
+
+    app = App()
+    
+    ball = Emoji('softball')
+    ball.center_in(app.area)
+    ball.vx = 5
+    app.show(ball)
+
+    app.frame = ping
+    app.exec()
+
+More examples provided in the repository.
