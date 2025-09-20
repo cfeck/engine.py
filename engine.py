@@ -565,7 +565,7 @@ class Window(QWidget):
         if s.text != '':
             if hasattr(s, "html") and s.html:
                 ctx = QAbstractTextDocumentLayout.PaintContext()
-                ctx.palette.setColor(QPalette.Text, p.pen().color())
+                ctx.palette.setColor(QPalette.ColorRole.Text, p.pen().color())
                 td = QTextDocument()
                 if s.w > 0:
                     td.setTextWidth(s.w)
@@ -652,7 +652,7 @@ class Form(QDialog):
         self.form = QFormLayout()
         hboxlayout = QVBoxLayout(self)
         hboxlayout.addLayout(self.form)
-        buttons = QDialogButtonBox(QDialogButtonBox.StandardButtons.Ok | QDialogButtonBox.StandardButtons.Cancel)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
         hboxlayout.addWidget(buttons)
@@ -742,7 +742,7 @@ class Form(QDialog):
 
     def ok(self):
         self.setVars()
-        return self.result() == QDialog.Accepted
+        return self.result() == QDialog.DialogCode.Accepted
 
 
 ##############################################################################
