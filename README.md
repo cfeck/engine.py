@@ -4,7 +4,7 @@
 
 Single-file wrapper for Qt for educational purposes.
 
-![screenshot-game-rockato.png]
+![Screenshot of Rockato game](screenshot-game-rockato.png)
 
 ### Features
 - single window apps or games
@@ -23,5 +23,5 @@ On Linux, you can start the files like this:
 
 `PYTHONPATH=. python3 games/game-memory3.py`
 
-![screenshot-game-memory3.png]
+![Screenshot of Memory³ game](screenshot-game-memory3.png)
 
