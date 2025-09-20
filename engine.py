@@ -53,7 +53,7 @@ if not qtmodule:
 
 def importQt():
     implist = [
-    ["Core",    ["Qt", "QSize", "QRect", "QUrl", "QSettings"]],
+    ["Core",    ["Qt", "QSize", "QRectF", "QUrl", "QSettings"]],
     ["Gui",     ["QPainter", "QColor", "QImage", "QCursor", "qRgb", "qRgba", "qGray", "QPalette",
                  "QTextDocument", "QAbstractTextDocumentLayout"]],
     ["Widgets", ["QApplication", "QWidget",
@@ -214,13 +214,13 @@ class Area:
         a.y = min(a.y, a_in.y + a_in.h - a.h)
 
     def inside(a, a_in):
-        r1 = QRect(a.x, a.y, a.w, a.h)
-        r2 = QRect(a_in.x, a_in.y, a_in.w, a_in.h)
+        r1 = QRectF(a.x, a.y, a.w, a.h)
+        r2 = QRectF(a_in.x, a_in.y, a_in.w, a_in.h)
         return r2.contains(r1)
 
     def hits(a1, a2):
-        r1 = QRect(a1.x, a1.y, a1.w, a1.h)
-        r2 = QRect(a2.x, a2.y, a2.w, a2.h)
+        r1 = QRectF(a1.x, a1.y, a1.w, a1.h)
+        r2 = QRectF(a2.x, a2.y, a2.w, a2.h)
         return r1.intersects(r2)
 
 
@@ -318,9 +318,9 @@ class Text(Sprite):
         gfx.fill(Qt.GlobalColor.transparent)
         p = QPainter(gfx)
         f = p.font()
-        f.setPixelSize(t.size)
+        f.setPixelSize(int(t.size))
         p.setFont(f)
-        p.drawText(gfx.rect(), Qt.Alignment.AlignCenter, t.text)
+        p.drawText(gfx.rect(), Qt.AlignmentFlag.AlignCenter, t.text)
         p.end()
         return gfx
 
@@ -501,21 +501,21 @@ class Window(QWidget):
                     if hasattr(s, "corner_radius"):
                         corner_radius = s.corner_radius
                 if corner_radius < 0:
-                    p.setRenderHints(QPainter.RenderHints.Antialiasing, True)
+                    p.setRenderHints(QPainter.RenderHint.Antialiasing, True)
                     p.setBrush(color)
                     p.setPen(Qt.PenStyle.NoPen)
-                    p.drawEllipse(QRect(0, 0, s.w, s.h))
+                    p.drawEllipse(QRectF(0, 0, s.w, s.h))
                 elif corner_radius > 0:
-                    p.setRenderHints(QPainter.RenderHints.Antialiasing, True)
+                    p.setRenderHints(QPainter.RenderHint.Antialiasing, True)
                     p.setBrush(color)
                     p.setPen(Qt.PenStyle.NoPen)
-                    p.drawRoundedRect(QRect(0, 0, s.w, s.h), corner_radius, corner_radius)
+                    p.drawRoundedRect(QRectF(0, 0, s.w, s.h), corner_radius, corner_radius)
                 else:
-                    p.fillRect(QRect(0, 0, s.w, s.h), color)
+                    p.fillRect(QRectF(0, 0, s.w, s.h), color)
                 return
         if hasattr(w.app, "debug") and w.app.debug:
-            p.fillRect(QRect(s.ew, s.eh, s.w, s.h), QColor(0, 100, 0, 100))
-            p.fillRect(QRect(0, 0, s.w, s.h), QColor(255, 0, 255, 100))
+            p.fillRect(QRectF(s.ew, s.eh, s.w, s.h), QColor(0, 100, 0, 100))
+            p.fillRect(QRectF(0, 0, s.w, s.h), QColor(255, 0, 255, 100))
         if s.animated:
             fr = s.frame
             if isinstance(gfx, list) or isinstance(gfx, tuple):
@@ -550,17 +550,17 @@ class Window(QWidget):
         else:
             p.setPen(w.fgColor())
         font = p.font()
-        font.setPixelSize(s.size)
+        font.setPixelSize(int(s.size))
         p.setFont(font)
-        rect = QRect(s.x, s.y, s.w, s.h)
+        rect = QRectF(s.x, s.y, s.w, s.h)
         if s == w.app.top:
-            align = Qt.Alignment.AlignTop
+            align = Qt.AlignmentFlag.AlignTop
             rect = rect.adjusted(0, 0, 0, 8000)
         elif s == w.app.bot:
-            align = Qt.Alignment.AlignBottom
+            align = Qt.AlignmentFlag.AlignBottom
             rect = rect.adjusted(0, -8000, 0, 0)
         else:
-            align = Qt.Alignment.AlignVCenter
+            align = Qt.AlignmentFlag.AlignVCenter
             rect = rect.adjusted(0, -8000, 0, 8000)
         if s.text != '':
             if hasattr(s, "html") and s.html:
@@ -577,11 +577,11 @@ class Window(QWidget):
 #                td.drawContents(p);
                 p.restore()
             else:
-                p.drawText(rect.adjusted(-8000, 0, 8000, 0), align | Qt.Alignment.AlignHCenter, s.text)
+                p.drawText(rect.adjusted(-8000, 0, 8000, 0), align | Qt.AlignmentFlag.AlignHCenter, s.text)
         if s.left != '':
-            p.drawText(rect.adjusted(0, 0, 8000, 0), align | Qt.Alignment.AlignLeft, s.left)
+            p.drawText(rect.adjusted(0, 0, 8000, 0), align | Qt.AlignmentFlag.AlignLeft, s.left)
         if s.right != '':
-            p.drawText(rect.adjusted(-8000, 0, 0, 0), align | Qt.Alignment.AlignRight, s.right)
+            p.drawText(rect.adjusted(-8000, 0, 0, 0), align | Qt.AlignmentFlag.AlignRight, s.right)
 
     def paintTexts(w, p):
         w.app.centertext.text = w.app.text if w.timer != None else w.app.text + "\n(Paused)"
@@ -912,7 +912,7 @@ if __name__ == "__main__":
     app.resized()
     app.background = RGB(200, 220, 240)
     bg = Graphics((app.w, app.h))
-    bg.execShader(lambda x, y, uniform: qRgb(200 - y / 5, 220 - y / 5, 240 - y / 5))
+    bg.execShader(lambda x, y, uniform: qRgb(200 - y // 5, 220 - y // 5, 240 - y // 5))
     bg.execPainter(lambda p, uniform: (p.drawLine(0, 126, 320, 126), p.drawLine(0, 36, 320, 36)))
     app.setBackground(bg)
     bug = Sprite(32, 32)
