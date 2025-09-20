@@ -12,7 +12,7 @@ def recolor(x, y, uniform):
     if h < 10 or h > 350:
 #    if h > 30 and h < 60:  # for emoji
         h += shift
-        rgb.setHsv(h % 360, hsv.saturation(), hsv.value(), rgb.alpha() * 0.75)
+        rgb.setHsv(h % 360, hsv.saturation(), hsv.value(), int(rgb.alpha() * 0.75))
         return rgb.rgba()
     else:
         return rgba
