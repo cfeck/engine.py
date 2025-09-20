@@ -29,35 +29,38 @@ On Linux, you can start the files like this:
 
 Hello world in engine.py:
 
-    from engine import App
+```python
+from engine import App
 
-    app = App()
-    app.text = "Hello, world!"
-    app.exec()
-
+app = App()
+app.text = "Hello, world!"
+app.exec()
+```
 
 Ping-Pong animation:
 
-    from engine import App, Emoji
+```python
+from engine import App, Emoji
 
-    def ping():
-        if ball.x > 600:
-            ball.vx = -5
-            app.frame = pong
+def ping():
+    if ball.x > 600:
+        ball.vx = -5
+        app.frame = pong
 
-    def pong():
-        if ball.x < 10:
-            ball.vx = 5
-            app.frame = ping
+def pong():
+    if ball.x < 10:
+        ball.vx = 5
+        app.frame = ping
 
-    app = App()
-    
-    ball = Emoji('softball')
-    ball.center_in(app.area)
-    ball.vx = 5
-    app.show(ball)
+app = App()
 
-    app.frame = ping
-    app.exec()
+ball = Emoji('softball')
+ball.center_in(app.area)
+ball.vx = 5
+app.show(ball)
+
+app.frame = ping
+app.exec()
+```
 
 More examples provided in the repository.
