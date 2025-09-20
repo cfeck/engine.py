@@ -1,0 +1,149 @@
+Classes
+
+    App                     application window with input handling, frame generation, and settings
+    Area                    rectangular area
+        Sprite              ... with Graphics
+            Animation       ... with animated Graphics
+            Text            ... with text
+                Emoji       ... with Unicode Emoji
+            Group           sprites moved together
+    RGB                     color value
+    Graphics                rectangular grid of RGB pixels
+    Sound                   WAV sound or music
+    Form                    popup form with input fields
+    Timer                   elapsed time
+    Grid                    2D cell grid
+
+
+App(name)
+    .exec()                 executes the application
+    .quit()                 quits the application (same as Esc)
+
+    .time                   runtime in seconds
+    .fps                    frames per seconds
+    .frame                  frame generation function
+
+    .background             background color, determines default text color
+    .setBackground(gfx)     background graphics, determines area size
+    .area                   application area
+
+    .show(sprite)           show/hide sprite, accepts list of sprites
+    .hide(sprite)
+    .setSpriteSheet(gfx)    graphics for all sprites
+
+    .mouse                  mouse area
+
+    .kx .ky .key            keyboard controller (cursor keys or WASD, Space for button)
+
+    .settings               QSettings object for storage
+
+    .text                   center text
+    .top.text               top text
+    .bot.text               bottom text
+
+    .print(text)            add text to .top.left
+    .input(prompt)          simple popup input
+
+    .timer()                create application timer
+
+
+Area(w, h)
+    .x .y                   position (of upper-left corner)
+    .w .h                   size
+    .pressed                mouse button (0 .. 3)
+
+    .center_in(area)        move area
+    .random_in(area)
+    .keep_in(area)
+
+    .inside(area)           area is inside another area
+    .hits(area)             area overlaps another area
+
+
+Sprite(w, h)
+    .vx .vy                 velocity (speed)
+    .ax .ay                 acceleration
+    .stop()                 stop movement
+
+    .color                  color for shape or text
+    .corner_radius          rectangle roundness
+
+    .setGraphics(gfx)       sprite graphics or sprite sheet, accepts list of frames
+    .ew .eh                 extra size (for shadow)
+    .sx .sy                 position in sprite sheet
+
+    .animated               only for graphics
+    .frames                 number of frames
+    .frame                  current frame (0 .. frames-1)
+    .fps                    frames per second (0 = paused)
+
+    .z .zx .zy              zoom factors
+    .r                      rotation (0 .. 360)
+
+
+Animation(w, h)
+
+
+Text(w, h)
+    .text                   centered text
+    .left                   left-aligned text
+    .right                  right-aligned text
+    .size                   font size
+    .html                   set to True for <strong> and <em> tags in .text
+
+    .graphics()             render as graphics
+
+
+Emoji(code, size)           code can be character, Unicode, 'U+xxxx', or Unicode character name
+
+
+Group(w, h)
+    .sprites                list of sprites in this group
+
+
+RGB(r, g, b)
+RGB(r, g, b, a)
+    .R()                    components 0 .. 255
+    .G()
+    .B()
+    .A()                    alpha/opacity
+
+
+Graphics(filename)
+    .w .h                   size
+    .mirror()               left/right
+    .flip()                 up/down
+    .makeTransparent(color) replace color with transparency
+    .execShader(shader, )   execute pixel shader
+    .execPainter(painter, ) execute QPainter calls
+    .pixel(x, y)            qRgba
+
+
+Sound(filename)
+    .play()
+    .stop()
+    .isPlaying()
+    .setVolume()            volume 0 .. 100
+
+
+Form(title)
+    .input_str(label)       input fields
+    .input_int(label)
+    .input_bool(label)
+    .exec()                 execute form
+    .ok()                   get result
+
+
+Timer(app)                  same as app.timer()
+    .start()                reset timer
+    .time()                 elapsed time (float)
+
+    .seconds()              elapsed seconds (int)
+    .minutes()              elapsed minutes (str)
+
+
+Grid(w, h)
+    .w .h                   grid size
+    [x,y]                   grid element
+
+
