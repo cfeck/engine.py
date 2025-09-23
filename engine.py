@@ -330,7 +330,7 @@ class Emoji(Text):
         Text.__init__(t, size, size)
         t.size = size
         if isinstance(code, str):
-            if len(code) > 0 and code[0] > 'z':
+            if len(code) == 1 or (len(code) > 0 and code[0] > 'z'):
                 t.text = code
             elif len(code) > 5 and code[:2] == "U+":
                 t.text = chr(int(code[2:], 16))
