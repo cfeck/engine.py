@@ -908,10 +908,8 @@ _ = None
 
 if __name__ == "__main__":
     app = App("About engine.py")
-    app.size = QSize(320, 160)
-    app.resized()
     app.background = RGB(200, 220, 240)
-    bg = Graphics((app.w, app.h))
+    bg = Graphics((320, 160))
     bg.execShader(lambda x, y, uniform: qRgb(200 - y // 5, 220 - y // 5, 240 - y // 5))
     bg.execPainter(lambda p, uniform: (p.drawLine(0, 126, 320, 126), p.drawLine(0, 36, 320, 36)))
     app.setBackground(bg)
