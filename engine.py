@@ -408,6 +408,7 @@ class Window(QWidget):
         w.timer = w.startTimer(1000 // w.app.fps)
         if hasattr(w.app, "init"):
             w.app.init()
+        w.timerEvent(None)
 
     def hideEvent(w, e):
         if w.timer:
